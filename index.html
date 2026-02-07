@@ -1,184 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="icon" href="https://ui-avatars.com/api/?name=MLOps&background=2563eb&color=ffffff&bold=true">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fraud Detection MLOps – Live Project Report</title>
   <style>
     :root {
-      --blue-900:#0f172a;
-      --blue-700:#1e40af;
-      --blue-600:#2563eb;
-      --blue-500:#3b82f6;
-      --cyan-500:#06b6d4;
-      --violet-500:#8b5cf6;
-      --emerald-500:#10b981;
-      --amber-500:#f59e0b;
-      --bg:#f8fafc;
-      --card:#ffffff;
-      --border:#e2e8f0;
-      --muted:#64748b;
+      --blue-900: #0f172a;
+      --blue-700: #1e40af;
+      --blue-600: #2563eb;
+      --blue-500: #3b82f6;
+      --cyan-500: #06b6d4;
+      --violet-500: #8b5cf6;
+      --emerald-500: #10b981;
+      --amber-500: #f59e0b;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --muted: #64748b;
     }
 
-    *{
-      box-sizing:border-box;
-      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    * {
+      box-sizing: border-box;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
     }
 
-    body{
-      margin:0;
-      background:linear-gradient(180deg,#f8fafc,#eef2ff);
-      color:var(--blue-900);
-      line-height:1.7;
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #f8fafc, #eef2ff);
+      color: var(--blue-900);
+      line-height: 1.7;
     }
 
     /* ---------- HEADER ---------- */
-    header{
-      padding:70px 20px 80px;
+    header {
+      padding: 70px 20px 80px;
       background:
-        radial-gradient(800px 300px at top left,#3b82f633,transparent 60%),
-        radial-gradient(600px 300px at top right,#06b6d433,transparent 60%),
-        linear-gradient(135deg,var(--blue-700),var(--blue-600));
-      color:#fff;
-      text-align:center;
+        radial-gradient(800px 300px at top left, #3b82f633, transparent 60%),
+        radial-gradient(600px 300px at top right, #06b6d433, transparent 60%),
+        linear-gradient(135deg, var(--blue-700), var(--blue-600));
+      color: #fff;
+      text-align: center;
     }
 
-    header h1{
-      margin:0;
-      font-size:2.6rem;
-      font-weight:700;
-      letter-spacing:-0.02em;
+    header h1 {
+      margin: 0;
+      font-size: 2.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
     }
 
-    header p{
-      max-width:900px;
-      margin:18px auto 0;
-      font-size:1.1rem;
-      opacity:.95;
+    header p {
+      max-width: 900px;
+      margin: 18px auto 0;
+      font-size: 1.1rem;
+      opacity: .95;
     }
 
     /* ---------- MAIN ---------- */
-    main{
-      max-width:1200px;
-      margin:-60px auto 60px;
-      padding:0 20px;
+    main {
+      max-width: 1200px;
+      margin: -60px auto 60px;
+      padding: 0 20px;
     }
 
-    section{
-      margin-bottom:40px;
+    section {
+      margin-bottom: 40px;
     }
 
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:34px;
-      box-shadow:0 25px 50px rgba(15,23,42,.08);
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 34px;
+      box-shadow: 0 25px 50px rgba(15, 23, 42, .08);
     }
 
-    h2{
-      margin-top:0;
-      font-size:1.7rem;
-      color:var(--blue-700);
-      display:flex;
-      align-items:center;
-      gap:10px;
+    h2 {
+      margin-top: 0;
+      font-size: 1.7rem;
+      color: var(--blue-700);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    h2 span{
-      width:10px;
-      height:10px;
-      border-radius:50%;
-      background:linear-gradient(135deg,var(--blue-500),var(--violet-500));
+    h2 span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-500), var(--violet-500));
     }
 
-    p{margin:14px 0;}
+    p {
+      margin: 14px 0;
+    }
 
-    ul,ol{padding-left:22px;}
-    li{margin-bottom:8px;}
+    ul,
+    ol {
+      padding-left: 22px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
 
     /* ---------- GRID ---------- */
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:18px;
-      margin-top:18px;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
     }
 
-    .tile{
-      padding:18px;
-      border-radius:14px;
-      background:linear-gradient(180deg,#ffffff,#f8fafc);
-      border:1px solid var(--border);
-      box-shadow:0 10px 25px rgba(15,23,42,.06);
-      font-size:.95rem;
+    .tile {
+      padding: 18px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #ffffff, #f8fafc);
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, .06);
+      font-size: .95rem;
     }
 
-    .tile strong{display:block;margin-bottom:6px;}
+    .tile strong {
+      display: block;
+      margin-bottom: 6px;
+    }
 
     /* ---------- FLOW ---------- */
-    .flow{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:16px;
-      margin-top:18px;
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
     }
 
-    .step{
-      border-radius:16px;
-      padding:20px;
-      color:#0f172a;
-      background:#fff;
-      border-left:6px solid var(--blue-500);
-      box-shadow:0 10px 25px rgba(15,23,42,.08);
+    .step {
+      border-radius: 16px;
+      padding: 20px;
+      color: #0f172a;
+      background: #fff;
+      border-left: 6px solid var(--blue-500);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, .08);
     }
 
-    .step:nth-child(2){border-left-color:var(--cyan-500);} 
-    .step:nth-child(3){border-left-color:var(--violet-500);} 
-    .step:nth-child(4){border-left-color:var(--emerald-500);} 
-    .step:nth-child(5){border-left-color:var(--amber-500);} 
+    .step:nth-child(2) {
+      border-left-color: var(--cyan-500);
+    }
+
+    .step:nth-child(3) {
+      border-left-color: var(--violet-500);
+    }
+
+    .step:nth-child(4) {
+      border-left-color: var(--emerald-500);
+    }
+
+    .step:nth-child(5) {
+      border-left-color: var(--amber-500);
+    }
 
     /* ---------- FOOTER ---------- */
-    footer{
-      background:linear-gradient(135deg,#0f172a,#1e293b);
-      color:#cbd5f5;
-      padding:40px 20px;
-      text-align:center;
+    footer {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #cbd5f5;
+      padding: 40px 20px;
+      text-align: center;
     }
 
-    footer strong{color:#fff;}
-      /* ---------- ANIMATIONS ---------- */
+    footer strong {
+      color: #fff;
+    }
+
+    /* ---------- ANIMATIONS ---------- */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(59,130,246,0.4); }
-      70% { box-shadow: 0 0 0 12px rgba(59,130,246,0); }
-      100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); }
+      0% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+      }
+
+      70% {
+        box-shadow: 0 0 0 12px rgba(59, 130, 246, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+      }
     }
 
     @keyframes blink {
-      0%, 50%, 100% { opacity: 1; }
-      25%, 75% { opacity: 0.4; }
+
+      0%,
+      50%,
+      100% {
+        opacity: 1;
+      }
+
+      25%,
+      75% {
+        opacity: 0.4;
+      }
     }
 
-    header h1 { animation: fadeUp 1s ease forwards; }
-    header p { animation: fadeUp 1.2s ease forwards; }
+    header h1 {
+      animation: fadeUp 1s ease forwards;
+    }
 
-    .card { animation: fadeUp 0.8s ease forwards; }
+    header p {
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    .card {
+      animation: fadeUp 0.8s ease forwards;
+    }
 
     .card:hover {
       transform: translateY(-6px);
       transition: all 0.3s ease;
-      box-shadow: 0 35px 70px rgba(15,23,42,.15);
+      box-shadow: 0 35px 70px rgba(15, 23, 42, .15);
     }
 
     .tile:hover {
       transform: scale(1.03);
       transition: all 0.25s ease;
-      background: linear-gradient(180deg,#ffffff,#eef2ff);
+      background: linear-gradient(180deg, #ffffff, #eef2ff);
     }
 
     .step:hover {
@@ -186,134 +244,139 @@
       transition: all 0.25s ease;
     }
 
-    h2 span { animation: pulse 2.5s infinite; }
+    h2 span {
+      animation: pulse 2.5s infinite;
+    }
 
-    footer strong { animation: blink 3s infinite; }
-
+    footer strong {
+      animation: blink 3s infinite;
+    }
   </style>
 </head>
+
 <body>
 
-<header>
-  <h1>End‑to‑End Fraud Detection MLOps Pipeline</h1>
-  <p>
-    A modern live project report showcasing how a classical machine learning
-    fraud detection system is productionized using industry‑grade MLOps tools
-    and cloud‑ready infrastructure.
-  </p>
-</header>
-
-<main>
-
-<section>
-  <div class="card">
-    <h2><span></span>Introduction</h2>
+  <header>
+    <h1>End‑to‑End Fraud Detection MLOps Pipeline</h1>
     <p>
-      This live project focuses on building a complete fraud detection pipeline
-      that goes beyond model development and addresses orchestration,
-      experiment tracking, artifact storage, and production parity.
+      A modern live project report showcasing how a classical machine learning
+      fraud detection system is productionized using industry‑grade MLOps tools
+      and cloud‑ready infrastructure.
     </p>
-  </div>
-</section>
+  </header>
 
-<section>
-  <div class="card">
-    <h2><span></span>Project Objectives</h2>
-    <ul>
-      <li>Design an end‑to‑end fraud detection ML pipeline</li>
-      <li>Automate training and evaluation using workflows</li>
-      <li>Enable experiment tracking and model versioning</li>
-      <li>Store ML artifacts in external object storage</li>
-      <li>Follow real‑world MLOps and DevOps practices</li>
-    </ul>
-  </div>
-</section>
+  <main>
 
-<section>
-  <div class="card">
-    <h2><span></span>Technology Stack</h2>
-    <div class="grid">
-      <div class="tile"><strong>Python</strong>Core language for ML and orchestration logic</div>
-      <div class="tile"><strong>XGBoost</strong>Classical ML model for fraud detection</div>
-      <div class="tile"><strong>Apache Airflow</strong>Workflow orchestration and scheduling</div>
-      <div class="tile"><strong>MLflow</strong>Experiment tracking and model registry</div>
-      <div class="tile"><strong>PostgreSQL</strong>Metadata and experiment database</div>
-      <div class="tile"><strong>MinIO</strong>S3‑compatible artifact storage</div>
-      <div class="tile"><strong>Docker</strong>Containerized infrastructure</div>
-      <div class="tile"><strong>WSL (Linux)</strong>Production‑parity execution on Windows</div>
-    </div>
-  </div>
-</section>
+    <section>
+      <div class="card">
+        <h2><span></span>Introduction</h2>
+        <p>
+          This live project focuses on building a complete fraud detection pipeline
+          that goes beyond model development and addresses orchestration,
+          experiment tracking, artifact storage, and production parity.
+        </p>
+      </div>
+    </section>
 
-<section>
-  <div class="card">
-    <h2><span></span>System Architecture</h2>
+    <section>
+      <div class="card">
+        <h2><span></span>Project Objectives</h2>
+        <ul>
+          <li>Design an end‑to‑end fraud detection ML pipeline</li>
+          <li>Automate training and evaluation using workflows</li>
+          <li>Enable experiment tracking and model versioning</li>
+          <li>Store ML artifacts in external object storage</li>
+          <li>Follow real‑world MLOps and DevOps practices</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="card">
+        <h2><span></span>Technology Stack</h2>
+        <div class="grid">
+          <div class="tile"><strong>Python</strong>Core language for ML and orchestration logic</div>
+          <div class="tile"><strong>XGBoost</strong>Classical ML model for fraud detection</div>
+          <div class="tile"><strong>Apache Airflow</strong>Workflow orchestration and scheduling</div>
+          <div class="tile"><strong>MLflow</strong>Experiment tracking and model registry</div>
+          <div class="tile"><strong>PostgreSQL</strong>Metadata and experiment database</div>
+          <div class="tile"><strong>MinIO</strong>S3‑compatible artifact storage</div>
+          <div class="tile"><strong>Docker</strong>Containerized infrastructure</div>
+          <div class="tile"><strong>WSL (Linux)</strong>Production‑parity execution on Windows</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="card">
+        <h2><span></span>System Architecture</h2>
+        <p>
+          The system is split into two independent layers. The infrastructure layer
+          manages storage, tracking, and messaging, while the orchestration layer
+          controls execution and scheduling. This separation mirrors real production
+          ML systems used in industry.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="card">
+        <h2><span></span>Pipeline Execution Flow</h2>
+        <div class="flow">
+          <div class="step"><strong>1. Data Processing</strong><br />Ingestion, cleaning, and feature preparation</div>
+          <div class="step"><strong>2. Model Training</strong><br />Fraud classification using XGBoost</div>
+          <div class="step"><strong>3. Experiment Tracking</strong><br />Metrics and parameters logged to MLflow</div>
+          <div class="step"><strong>4. Artifact Storage</strong><br />Models stored in MinIO (S3‑compatible)</div>
+          <div class="step"><strong>5. Orchestration</strong><br />Automated scheduling and monitoring via Airflow</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="card">
+        <h2><span></span>Why Linux / WSL</h2>
+        <p>
+          Most production ML systems run on Linux. Using WSL ensures consistent
+          behavior for shell scripts, Docker containers, and permissions while
+          working on a Windows machine. This avoids platform‑specific issues and
+          keeps the project production‑ready.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="card">
+        <h2><span></span>Results & Outcomes</h2>
+        <ul>
+          <li>Fully automated and repeatable ML pipeline</li>
+          <li>Tracked and reproducible experiments</li>
+          <li>Persistent, cloud‑ready artifact storage</li>
+          <li>Clean separation of infrastructure and orchestration</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="card">
+        <h2><span></span>Conclusion</h2>
+        <p>
+          This project demonstrates how classical machine learning can be
+          productionized using modern MLOps principles. The design emphasizes
+          simplicity, scalability, and real‑world applicability, making it suitable
+          for enterprise‑grade ML systems.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
     <p>
-      The system is split into two independent layers. The infrastructure layer
-      manages storage, tracking, and messaging, while the orchestration layer
-      controls execution and scheduling. This separation mirrors real production
-      ML systems used in industry.
+      <strong>Rajat Pathak</strong> | MSc Data Science<br />
+      End‑to‑End Fraud Detection MLOps Project Report
     </p>
-  </div>
-</section>
-
-<section>
-  <div class="card">
-    <h2><span></span>Pipeline Execution Flow</h2>
-    <div class="flow">
-      <div class="step"><strong>1. Data Processing</strong><br/>Ingestion, cleaning, and feature preparation</div>
-      <div class="step"><strong>2. Model Training</strong><br/>Fraud classification using XGBoost</div>
-      <div class="step"><strong>3. Experiment Tracking</strong><br/>Metrics and parameters logged to MLflow</div>
-      <div class="step"><strong>4. Artifact Storage</strong><br/>Models stored in MinIO (S3‑compatible)</div>
-      <div class="step"><strong>5. Orchestration</strong><br/>Automated scheduling and monitoring via Airflow</div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="card">
-    <h2><span></span>Why Linux / WSL</h2>
-    <p>
-      Most production ML systems run on Linux. Using WSL ensures consistent
-      behavior for shell scripts, Docker containers, and permissions while
-      working on a Windows machine. This avoids platform‑specific issues and
-      keeps the project production‑ready.
-    </p>
-  </div>
-</section>
-
-<section>
-  <div class="card">
-    <h2><span></span>Results & Outcomes</h2>
-    <ul>
-      <li>Fully automated and repeatable ML pipeline</li>
-      <li>Tracked and reproducible experiments</li>
-      <li>Persistent, cloud‑ready artifact storage</li>
-      <li>Clean separation of infrastructure and orchestration</li>
-    </ul>
-  </div>
-</section>
-
-<section>
-  <div class="card">
-    <h2><span></span>Conclusion</h2>
-    <p>
-      This project demonstrates how classical machine learning can be
-      productionized using modern MLOps principles. The design emphasizes
-      simplicity, scalability, and real‑world applicability, making it suitable
-      for enterprise‑grade ML systems.
-    </p>
-  </div>
-</section>
-
-</main>
-
-<footer>
-  <p>
-    <strong>Rajat Pathak</strong> | MSc Data Science<br/>
-    End‑to‑End Fraud Detection MLOps Project Report
-  </p>
-</footer>
+  </footer>
 
 </body>
+
 </html>
